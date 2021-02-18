@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,17 @@
 		467ECE0E25DD439500F73A3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 467ECE0C25DD439500F73A3D /* Main.storyboard */; };
 		467ECE1025DD439C00F73A3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467ECE0F25DD439C00F73A3D /* Assets.xcassets */; };
 		467ECE1325DD439C00F73A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 467ECE1125DD439C00F73A3D /* LaunchScreen.storyboard */; };
+		467ECE1C25DD443400F73A3D /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE1B25DD443400F73A3D /* MainTabController.swift */; };
+		467ECE4A25DD45BC00F73A3D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE4925DD45BC00F73A3D /* Extensions.swift */; };
+		467ECE4F25DD49BB00F73A3D /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE4E25DD49BB00F73A3D /* FeedController.swift */; };
+		467ECE5225DD4B9300F73A3D /* WriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE5125DD4B9300F73A3D /* WriteController.swift */; };
+		467ECE5525DD4BE100F73A3D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE5425DD4BE100F73A3D /* ProfileController.swift */; };
+		467ECE5A25DD4D5600F73A3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 467ECE5925DD4D5600F73A3D /* GoogleService-Info.plist */; };
+		467ECE5E25DD503D00F73A3D /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE5D25DD503D00F73A3D /* FeedCell.swift */; };
+		467ECE8525DE45F400F73A3D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE8425DE45F400F73A3D /* CustomTextField.swift */; };
+		467ECE8A25DE4C4100F73A3D /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */; };
+		467ECE8D25DE5B2900F73A3D /* riot.txt in Resources */ = {isa = PBXBuildFile; fileRef = 467ECE8C25DE5B2900F73A3D /* riot.txt */; };
+		9C4906AE729E149D1ED798D7 /* Pods_FantasticDuo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0231D7BF6E0D4C05E9CBAA /* Pods_FantasticDuo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +35,18 @@
 		467ECE0F25DD439C00F73A3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		467ECE1225DD439C00F73A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		467ECE1425DD439C00F73A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		467ECE1B25DD443400F73A3D /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		467ECE4925DD45BC00F73A3D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		467ECE4E25DD49BB00F73A3D /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
+		467ECE5125DD4B9300F73A3D /* WriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteController.swift; sourceTree = "<group>"; };
+		467ECE5425DD4BE100F73A3D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		467ECE5925DD4D5600F73A3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		467ECE5D25DD503D00F73A3D /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		467ECE8425DE45F400F73A3D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		467ECE8C25DE5B2900F73A3D /* riot.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = riot.txt; sourceTree = "<group>"; };
+		5633152C88D1140DD7016BDC /* Pods-FantasticDuo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FantasticDuo.release.xcconfig"; path = "Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo.release.xcconfig"; sourceTree = "<group>"; };
+		BF0231D7BF6E0D4C05E9CBAA /* Pods_FantasticDuo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasticDuo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB58062EF1CC2A2D4BB9F960 /* Pods-FantasticDuo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FantasticDuo.debug.xcconfig"; path = "Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +54,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C4906AE729E149D1ED798D7 /* Pods_FantasticDuo.framework in Frameworks */,
+				467ECE8A25DE4C4100F73A3D /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45191CC7FACC44799508090B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB58062EF1CC2A2D4BB9F960 /* Pods-FantasticDuo.debug.xcconfig */,
+				5633152C88D1140DD7016BDC /* Pods-FantasticDuo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		467ECDFA25DD439500F73A3D = {
 			isa = PBXGroup;
 			children = (
 				467ECE0525DD439500F73A3D /* FantasticDuo */,
 				467ECE0425DD439500F73A3D /* Products */,
+				45191CC7FACC44799508090B /* Pods */,
+				D2658C2CE30FCB4ABFE13A23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +92,10 @@
 		467ECE0525DD439500F73A3D /* FantasticDuo */ = {
 			isa = PBXGroup;
 			children = (
+				467ECE8C25DE5B2900F73A3D /* riot.txt */,
+				467ECE5C25DD503300F73A3D /* View */,
+				467ECE4C25DD460900F73A3D /* Controller */,
+				467ECE4625DD45AA00F73A3D /* Utils */,
 				467ECE0625DD439500F73A3D /* AppDelegate.swift */,
 				467ECE0825DD439500F73A3D /* SceneDelegate.swift */,
 				467ECE0A25DD439500F73A3D /* ViewController.swift */,
@@ -63,8 +103,45 @@
 				467ECE0F25DD439C00F73A3D /* Assets.xcassets */,
 				467ECE1125DD439C00F73A3D /* LaunchScreen.storyboard */,
 				467ECE1425DD439C00F73A3D /* Info.plist */,
+				467ECE5925DD4D5600F73A3D /* GoogleService-Info.plist */,
 			);
 			path = FantasticDuo;
+			sourceTree = "<group>";
+		};
+		467ECE4625DD45AA00F73A3D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				467ECE4925DD45BC00F73A3D /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		467ECE4C25DD460900F73A3D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				467ECE1B25DD443400F73A3D /* MainTabController.swift */,
+				467ECE4E25DD49BB00F73A3D /* FeedController.swift */,
+				467ECE5125DD4B9300F73A3D /* WriteController.swift */,
+				467ECE5425DD4BE100F73A3D /* ProfileController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		467ECE5C25DD503300F73A3D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				467ECE5D25DD503D00F73A3D /* FeedCell.swift */,
+				467ECE8425DE45F400F73A3D /* CustomTextField.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D2658C2CE30FCB4ABFE13A23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF0231D7BF6E0D4C05E9CBAA /* Pods_FantasticDuo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,15 +151,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467ECE1725DD439C00F73A3D /* Build configuration list for PBXNativeTarget "FantasticDuo" */;
 			buildPhases = (
+				3D0E87452EA581BEF222C13E /* [CP] Check Pods Manifest.lock */,
 				467ECDFF25DD439500F73A3D /* Sources */,
 				467ECE0025DD439500F73A3D /* Frameworks */,
 				467ECE0125DD439500F73A3D /* Resources */,
+				4B17673C5F3F262E8E7AB6D1 /* [CP] Embed Pods Frameworks */,
+				0B7C7C32A667DC3EA48AAFB8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = FantasticDuo;
+			packageProductDependencies = (
+				467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */,
+			);
 			productName = FantasticDuo;
 			productReference = 467ECE0325DD439500F73A3D /* FantasticDuo.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +193,9 @@
 				Base,
 			);
 			mainGroup = 467ECDFA25DD439500F73A3D;
+			packageReferences = (
+				467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = 467ECE0425DD439500F73A3D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,21 +211,89 @@
 			buildActionMask = 2147483647;
 			files = (
 				467ECE1325DD439C00F73A3D /* LaunchScreen.storyboard in Resources */,
+				467ECE5A25DD4D5600F73A3D /* GoogleService-Info.plist in Resources */,
 				467ECE1025DD439C00F73A3D /* Assets.xcassets in Resources */,
 				467ECE0E25DD439500F73A3D /* Main.storyboard in Resources */,
+				467ECE8D25DE5B2900F73A3D /* riot.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B7C7C32A667DC3EA48AAFB8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D0E87452EA581BEF222C13E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FantasticDuo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B17673C5F3F262E8E7AB6D1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		467ECDFF25DD439500F73A3D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				467ECE5225DD4B9300F73A3D /* WriteController.swift in Sources */,
+				467ECE8525DE45F400F73A3D /* CustomTextField.swift in Sources */,
+				467ECE4A25DD45BC00F73A3D /* Extensions.swift in Sources */,
+				467ECE4F25DD49BB00F73A3D /* FeedController.swift in Sources */,
 				467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */,
 				467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */,
+				467ECE1C25DD443400F73A3D /* MainTabController.swift in Sources */,
 				467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */,
+				467ECE5525DD4BE100F73A3D /* ProfileController.swift in Sources */,
+				467ECE5E25DD503D00F73A3D /* FeedCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,12 +437,14 @@
 		};
 		467ECE1825DD439C00F73A3D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB58062EF1CC2A2D4BB9F960 /* Pods-FantasticDuo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TR28HNY8VK;
 				INFOPLIST_FILE = FantasticDuo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,18 +452,20 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dev-geeyong484.FantasticDuo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		467ECE1925DD439C00F73A3D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5633152C88D1140DD7016BDC /* Pods-FantasticDuo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TR28HNY8VK;
 				INFOPLIST_FILE = FantasticDuo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dev-geeyong484.FantasticDuo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -341,6 +499,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 467ECDFB25DD439500F73A3D /* Project object */;
 }
