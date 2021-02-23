@@ -9,12 +9,14 @@ import UIKit
 import AuthenticationServices
 import CryptoKit
 import Firebase
+
 protocol AuthenticationDelegate: class {
     func authenticationDidComplete()
 }
 class LoginController: UIViewController {
 
     //MARK: - Properties
+    var viewModel = LoginViewModel()
     var appleLoginUid: String?
     var usernickname: String?
     private var currentNonce: String?
@@ -111,14 +113,15 @@ class LoginController: UIViewController {
         guard let email = emailTextField.text else{return}
         guard let password = passwordTextField.text else{return}
         
-//        AuthService.logUserIn(withEmail: email, password: password){(result, error) in
-//            if let error = error {
-//                print("debug failed to log user in \(error.localizedDescription)")
-//                return
-//            }
-//            self.delegate?.authenticationDidComplete()
-//
-//        }
+        AuthService.logUserIn(withEmail: email, password: password){(result, error) in
+            if let error = error {
+                print("debug failed to log user in \(error.localizedDescription)")
+                return
+            }
+            self.delegate?.authenticationDidComplete()
+            //self.dismiss(animated: true, completion: nil)
+
+        }
     }
     @objc func handleShowResetPassword(){
 //        let controller = ResetPasswordController()
@@ -132,13 +135,13 @@ class LoginController: UIViewController {
         
     }
     @objc func textDidChange(sender: UITextField){
-//        if sender == emailTextField{
-//            viewModel.email = sender.text
-//        }
-//        else{
-//            viewModel.password = sender.text
-//        }
-//        updateForm()
+        if sender == emailTextField{
+            viewModel.email = sender.text
+        }
+        else{
+            viewModel.password = sender.text
+        }
+        updateForm()
     }
     //MARK: - Helpers
     
@@ -179,14 +182,14 @@ class LoginController: UIViewController {
         alert.textFields![0].placeholder = "소환사 이름"
         alert.addAction(UIAlertAction(title: "입력", style: .default, handler: { (action) in
             if let userNickname = alert.textFields![0].text {
-                usernick = userNickname
+           
+                completions(userNickname)
+                
             }
         }))
         
         self.present(alert, animated: true )
-        if let usernick = usernick {
-            completions(usernick)
-        }
+        
         
         
     }
@@ -240,14 +243,14 @@ class LoginController: UIViewController {
     }
 }
 
-//extension LoginController: FormViewModel{
-//    func updateForm() {
-//        loginButton.backgroundColor = viewModel.buttonBackgroundColor
-//        loginButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
-//        loginButton.isEnabled = true
-//    }
-//
-//}
+extension LoginController: FormViewModel{
+    func updateForm() {
+        loginButton.backgroundColor = viewModel.buttonBackgroundColor
+        loginButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
+        loginButton.isEnabled = true
+    }
+
+}
 //extension LoginController: ResetPasswordControllerDelegate{
 //    func controllerDidSendResetPasswordLink(_ controller: ResetPasswordController) {
 //        navigationController?.popViewController(animated: true)
@@ -272,21 +275,24 @@ extension LoginController: ASAuthorizationControllerDelegate,ASAuthorizationCont
             if let error = error {
                 print("apple eeor ", error)
             }
-            self.showAlert() { nickname in
+            self.showAlert(){ nickname in
                 self.usernickname = nickname
-                print("nickname",nickname)
-            }
-            if let nickname = self.usernickname {
-                if let uid = result?.user.uid{
-                        AuthService.registerAppleLogin(uid: uid, nickname: nickname) { (error) in
-                            if let error = error {
-                                print(error)
-                                return
+                if let nickName = self.usernickname {
+                    print("cjt samsung",nickName)
+                    if let uid = result?.user.uid{
+                        print("samsung",uid)
+                            AuthService.registerAppleLogin(uid: uid, nickname: nickName) { (error) in
+                                if let error = error {
+                                    print(error)
+                                    return
+                                }
+                                print("succes")
+                                self.delegate?.authenticationDidComplete()
                             }
-                            print("succes")
-                        }
- 
+     
+                    }
                 }
+                
             }
             
             

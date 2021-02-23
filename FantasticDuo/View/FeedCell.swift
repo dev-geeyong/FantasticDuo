@@ -9,7 +9,7 @@ import UIKit
 
 class FeedCell: UITableViewCell{
     //MARK: - Propertie
-    private let profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -20,30 +20,32 @@ class FeedCell: UITableViewCell{
         let view = UIView()
         return view
     }()
-    private let contentLabel: UILabel = {
+    var contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 0
         label.text = "버스 기사 듀오 구합니다. 진짜 잘하시는분만구합니다다다다다다잘하시는분만구합니다다다다다다"
-        label.textColor = .black
+        label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
         
         return label
     }()
-    private let nicknameLabel: UILabel = {
+    var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = "지죵이"
         label.numberOfLines = 0
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
+       
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .systemGray6
         addSubview(backView)
         backView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8)
-        backView.backgroundColor = .systemGray6
+        backView.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1)
         backView.layer.cornerRadius = 8
         backView.clipsToBounds = true
         
@@ -53,7 +55,7 @@ class FeedCell: UITableViewCell{
         profileImageView.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         
         backView.addSubview(nicknameLabel)
-        nicknameLabel.anchor(bottom: backView.bottomAnchor, right:backView.rightAnchor, paddingBottom: 8, paddingRight: 8)
+        nicknameLabel.anchor(bottom: backView.bottomAnchor, right:backView.rightAnchor,paddingTop: 8, paddingBottom: 8, paddingRight: 8)
         
         backView.addSubview(contentLabel)
         contentLabel.anchor(top:backView.topAnchor,

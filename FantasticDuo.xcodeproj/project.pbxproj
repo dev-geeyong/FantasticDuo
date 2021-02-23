@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		466CDD7925E48FE300950597 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD7825E48FE300950597 /* AuthenticationViewModel.swift */; };
+		466CDD7C25E4977A00950597 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD7B25E4977A00950597 /* UserService.swift */; };
+		466CDD7F25E4DEA600950597 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD7E25E4DEA600950597 /* PostService.swift */; };
+		466CDD8225E4E06600950597 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD8125E4E06600950597 /* Post.swift */; };
+		466CDD8925E5203B00950597 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD8825E5203B00950597 /* PostDetailViewController.swift */; };
 		467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0625DD439500F73A3D /* AppDelegate.swift */; };
 		467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0825DD439500F73A3D /* SceneDelegate.swift */; };
 		467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0A25DD439500F73A3D /* ViewController.swift */; };
@@ -34,6 +39,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		466CDD7825E48FE300950597 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		466CDD7B25E4977A00950597 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		466CDD7E25E4DEA600950597 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		466CDD8125E4E06600950597 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		466CDD8825E5203B00950597 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		467ECE0325DD439500F73A3D /* FantasticDuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasticDuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467ECE0625DD439500F73A3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467ECE0825DD439500F73A3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +96,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		466CDD7725E48FD000950597 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				466CDD7825E48FE300950597 /* AuthenticationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		467ECDFA25DD439500F73A3D = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +125,7 @@
 		467ECE0525DD439500F73A3D /* FantasticDuo */ = {
 			isa = PBXGroup;
 			children = (
+				466CDD7725E48FD000950597 /* ViewModel */,
 				467ECEA025DE9B9200F73A3D /* API */,
 				467ECE9C25DE9B0500F73A3D /* Model */,
 				467ECE9725DE94E900F73A3D /* FantasticDuo.entitlements */,
@@ -145,6 +164,7 @@
 				467ECE9425DE8A5C00F73A3D /* LoginController.swift */,
 				467ECE9925DE973000F73A3D /* RegistrationController.swift */,
 				467ECEA725DEA20B00F73A3D /* AppleLoginController.swift */,
+				466CDD8825E5203B00950597 /* PostDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -163,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				467ECE9D25DE9B1000F73A3D /* User.swift */,
+				466CDD8125E4E06600950597 /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +192,8 @@
 			isa = PBXGroup;
 			children = (
 				467ECEA125DE9BA800F73A3D /* AuthService.swift */,
+				466CDD7B25E4977A00950597 /* UserService.swift */,
+				466CDD7E25E4DEA600950597 /* PostService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -326,16 +349,21 @@
 				467ECE5225DD4B9300F73A3D /* WriteController.swift in Sources */,
 				467ECE9525DE8A5C00F73A3D /* LoginController.swift in Sources */,
 				467ECE8525DE45F400F73A3D /* CustomTextField.swift in Sources */,
+				466CDD8925E5203B00950597 /* PostDetailViewController.swift in Sources */,
 				467ECE4A25DD45BC00F73A3D /* Extensions.swift in Sources */,
 				467ECE4F25DD49BB00F73A3D /* FeedController.swift in Sources */,
 				467ECE9125DE7C9200F73A3D /* ProfileCommentCell.swift in Sources */,
+				466CDD7925E48FE300950597 /* AuthenticationViewModel.swift in Sources */,
 				467ECE9E25DE9B1000F73A3D /* User.swift in Sources */,
 				467ECEA525DE9D1C00F73A3D /* Constants.swift in Sources */,
 				467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */,
 				467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */,
 				467ECE1C25DD443400F73A3D /* MainTabController.swift in Sources */,
+				466CDD8225E4E06600950597 /* Post.swift in Sources */,
 				467ECEA825DEA20B00F73A3D /* AppleLoginController.swift in Sources */,
+				466CDD7C25E4977A00950597 /* UserService.swift in Sources */,
 				467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */,
+				466CDD7F25E4DEA600950597 /* PostService.swift in Sources */,
 				467ECE5525DD4BE100F73A3D /* ProfileController.swift in Sources */,
 				467ECEA225DE9BA800F73A3D /* AuthService.swift in Sources */,
 				467ECE5E25DD503D00F73A3D /* FeedCell.swift in Sources */,

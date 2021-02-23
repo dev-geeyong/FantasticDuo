@@ -1,14 +1,22 @@
-//
-//  WriteController.swift
-//  FantasticDuo
-//
-//  Created by dev.geeyong on 2021/02/17.
-//
+
 
 import UIKit
-
+protocol WriteControllerDelegate: class {
+    func test()
+}
 class WriteController: UIViewController{
     //MARK: - Propertie
+    weak var delegate: WriteControllerDelegate?
+    private var currentuser: User?
+    init(user: User){
+        self.currentuser = user
+        super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["아/브","실","골","플","다"])
@@ -19,6 +27,7 @@ class WriteController: UIViewController{
     private let titleTextField: CustomTextField = {
         
         let tf = CustomTextField(placeholder: "제목")
+        tf.keyboardType = .default
         tf.setHeight(50)
         
         return tf
@@ -33,6 +42,7 @@ class WriteController: UIViewController{
     private let contentTextField: CustomTextField = {
         
         let tf = CustomTextField(placeholder: "내용")
+        tf.keyboardType = .default
         tf.setHeight(100)
         
         return tf
@@ -62,10 +72,25 @@ class WriteController: UIViewController{
 
     //MARK: - Actions
     @objc func handleSegment(){
-        print("handleSegment")
+        print(segmentedControl.selectedSegmentIndex)
+        
     }
     @objc func handleSubmmitButton(){
         print("handleSubmmitButton")
+        guard let title = titleTextField.text else{ return }
+        guard let content = contentTextField.text else {return}
+        guard let user = currentuser else {return}
+        let rank = segmentedControl.selectedSegmentIndex
+        
+        PostService.uploadPost(title: title, content: content, rank: rank, user: user) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            self.tabBarController?.selectedIndex = 0
+            self.delegate?.test()
+        }
+        
     }
     //MARK: - Helpers
     func configureUI(){
@@ -80,7 +105,10 @@ class WriteController: UIViewController{
         view.addSubview(stackView)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor,
                          paddingTop: 32, paddingLeft: 32,paddingRight: 32)
-        
+        guard let user = currentuser else {
+            return
+        }
+        nicknameTextField.text = user.nickname
     }
   
    

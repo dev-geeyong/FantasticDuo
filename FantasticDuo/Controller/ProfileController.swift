@@ -34,6 +34,14 @@ class ProfileController: UIViewController {
         button.setTitle(" 소환사 한줄평", for: .normal)
         return button
     }()
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "profile_selected"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
+        button.setTitle(" 로그아웃", for: .normal)
+        return button
+    }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +50,16 @@ class ProfileController: UIViewController {
     //MARK: - API
     //MARK: - Actions
     @objc func didTapComments(){
+        
+    }
+    @objc func didTapLogout(){
         do{
             try Auth.auth().signOut()
             let controller = LoginController()
-//            controller.delegate = self.tabBarController as? MainTabController
-//            let nav = UINavigationController(rootViewController: controller)
-//            nav.modalPresentationStyle = .fullScreen
-//            self.present(nav, animated: true, completion: nil)
+            controller.delegate = self.tabBarController as? MainTabController
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
         }catch{
             print("debug: failed to sgin out")
         }
@@ -71,10 +82,14 @@ class ProfileController: UIViewController {
         headerView.layer.cornerRadius = 8
         headerView.clipsToBounds = true
         
-        headerView.addSubview(nicknameLabel)
-        nicknameLabel.anchor(top: headerView.topAnchor, left: headerView.leftAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor,paddingLeft: 32)
-        headerView.addSubview(commentButton)
-        commentButton.anchor(top: headerView.topAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor, paddingRight: 16)
+        let stackview = UIStackView(arrangedSubviews: [nicknameLabel,commentButton,logoutButton])
+        headerView.addSubview(stackview)
+        stackview.distribution = .fillEqually
+        stackview.anchor(top: headerView.topAnchor, left: headerView.leftAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor,paddingLeft: 22,paddingRight: 16)
+//        headerView.addSubview(nicknameLabel)
+//        nicknameLabel.anchor(top: headerView.topAnchor, left: headerView.leftAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor,paddingLeft: 32)
+//        headerView.addSubview(commentButton)
+//        commentButton.anchor(top: headerView.topAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor, paddingRight: 16)
         
         
     }

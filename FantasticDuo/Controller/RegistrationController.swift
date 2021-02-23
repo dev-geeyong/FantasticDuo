@@ -10,7 +10,7 @@ import UIKit
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
-   // private var viewModel = RegistrationViewModel()
+    private var viewModel = RegistrationViewModel()
     private var profileImage: UIImage?
     weak var delegate: AuthenticationDelegate?
 
@@ -37,7 +37,6 @@ class RegistrationController: UIViewController {
     }()
     private let nicknameTextField :CustomTextField = {
         let tf = CustomTextField(placeholder: "롤 소환사 이름")
-         tf.isSecureTextEntry = true
          tf.setHeight(50)
          return tf
     }()
@@ -74,35 +73,33 @@ class RegistrationController: UIViewController {
         present(picker, animated: true, completion: nil)
     }
     @objc func pushSignUpButton(){
-//        guard let email = emailTextField.text else {return}
-//        guard let password = passwordTextField.text else {return}
-//        guard let fullname = fullnameTextField.text else {return}
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        guard let nickname = nicknameTextField.text else {return}
 //        guard let username = usernameTextField.text?.lowercased() else {return}
 //        guard let profileImage = self.profileImage else {return}
 //
-//        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
-//        AuthService.registerUser(withCredential: credentials) { error in
-//            if let error = error {
-//                print("debug failed to register user \(error.localizedDescription)")
-//            }
-//            self.delegate?.authenticationDidComplete()
-//        }
+        let credentials = AuthCredentials(email: email, password: password, nickname: nickname)
+        AuthService.registerUser(withCredential: credentials) { error in
+            if let error = error {
+                print("debug failed to register user \(error.localizedDescription)")
+            }
+            self.dismiss(animated: true, completion: nil)
+            //self.delegate?.authenticationDidComplete()
+        }
     }
     
     @objc func textDidChange(sender: UITextField){
-//        if sender == emailTextField{
-//            viewModel.email = sender.text
-//        }
-//        else if sender == passwordTextField{
-//            viewModel.password = sender.text
-//        }
-//        else if sender == fullnameTextField{
-//            viewModel.fullname = sender.text
-//        }
-//        else{
-//            viewModel.username = sender.text
-//        }
-//        updateForm()
+        if sender == emailTextField{
+            viewModel.email = sender.text
+        }
+        else if sender == passwordTextField{
+            viewModel.password = sender.text
+        }
+        else if sender == nicknameTextField{
+            viewModel.nickname = sender.text
+        }
+        updateForm()
 
     }
     //MARK: - Lifecycle
@@ -143,13 +140,13 @@ class RegistrationController: UIViewController {
 }
 
 //MARK: - FormViewModel
-//extension RegistrationController: FormViewModel{
-//    func updateForm() {
-//        signUpButton.backgroundColor = viewModel.buttonBackgroundColor
-//        signUpButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
-//        signUpButton.isEnabled = true
-//    }
-//}
+extension RegistrationController: FormViewModel{
+    func updateForm() {
+        signUpButton.backgroundColor = viewModel.buttonBackgroundColor
+        signUpButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
+        signUpButton.isEnabled = true
+    }
+}
 
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     

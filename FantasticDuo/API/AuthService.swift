@@ -28,8 +28,7 @@ struct AuthService {
             
             guard let uid = result?.user.uid else{return}
             
-            let data: [String: Any] = ["email": credentials.email,
-                                       "nickname" : credentials.nickname,
+            let data: [String: Any] = ["nickname" : credentials.nickname,
                                        "uid": uid
             ]
             COLLECTION_USERS.document(uid).setData(data, completion: complietion)
@@ -43,6 +42,7 @@ struct AuthService {
         COLLECTION_USERS.document(uid).setData(data, completion: complietion)
         
     }
+    
     
 }
 

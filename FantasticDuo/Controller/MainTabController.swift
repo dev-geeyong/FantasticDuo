@@ -10,19 +10,35 @@ import Firebase
 class MainTabController: UITabBarController{
     
     //MARK: - Propertie
+    var user: User? {
+        didSet{
+            guard let user = user else{return}
+            configureViewController(withUser: user)
+        }
+    }
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
+        
+        checkIfUserIsLoggedIn()
+        fetchUser()
     }
     //MARK: - API
+    func fetchUser(){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        UserService.fetchUser(withUid: uid) { user in
+            self.user = user
+            print(user.nickname)
+        }
+    }
     //MARK: - Actions
     //MARK: - Helpers
-    func configureViewController(){
+    func configureViewController(withUser user: User){
         self.delegate = self
         let feed = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: FeedController())
-        let write = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: WriteController())
+        let write = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: WriteController(user: user))
         let profile = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: ProfileController())
+        
         
         viewControllers = [feed,write,profile]
         tabBar.tintColor = .black
@@ -39,7 +55,7 @@ class MainTabController: UITabBarController{
         if Auth.auth().currentUser == nil{ //로그인 상태가 아니면 로그인 화면으로
             DispatchQueue.main.async {
                 let controller = LoginController()
-                //controller.delegate = self
+                controller.delegate = self
                 let nav = UINavigationController(rootViewController: controller)
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)
@@ -54,9 +70,26 @@ extension MainTabController: UITabBarControllerDelegate{
         
         let index = viewControllers?.firstIndex(of: viewController)
         if index == 1 {
-            print("????")
             checkIfUserIsLoggedIn()
         }
         return true
     }
+}
+
+extension MainTabController: AuthenticationDelegate{
+    func authenticationDidComplete() {
+        print("authenticationDidComplete")
+        fetchUser()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
+extension MainTabController: WriteControllerDelegate{
+    func test() {
+        print("프로톸")
+        
+    }
+    
+    
 }
