@@ -176,7 +176,7 @@ class LoginController: UIViewController {
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
     func showAlert(completions: @escaping(String)->Void){
-        var usernick: String?
+        
         let alert = UIAlertController(title: "소환사 이름입력", message: "환상의 듀오를 찾을 소환사 이름을 입력해주세요", preferredStyle: .alert)
         alert.addTextField()
         alert.textFields![0].placeholder = "소환사 이름"

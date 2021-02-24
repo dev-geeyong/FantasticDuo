@@ -59,7 +59,14 @@ class PostDetailViewController: UIViewController{
     //MARK: - API
     //MARK: - Actions
     @objc func handleNicknameButton(){
-        print("handleNicknameButton")
+        print("handleNicknameButton", currentPost?.ownerUid)
+        
+        if let uid = currentPost?.ownerUid{
+            UserService.fetchUser(withUid: uid) { user in
+                let controller = ProfileController(user: user)
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
     }
     //MARK: - Helpers
     func configureUI(){

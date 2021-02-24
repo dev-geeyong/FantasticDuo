@@ -84,8 +84,8 @@ class RegistrationController: UIViewController {
             if let error = error {
                 print("debug failed to register user \(error.localizedDescription)")
             }
-            self.dismiss(animated: true, completion: nil)
-            //self.delegate?.authenticationDidComplete()
+            //self.dismiss(animated: true, completion: nil)
+            self.delegate?.authenticationDidComplete()
         }
     }
     

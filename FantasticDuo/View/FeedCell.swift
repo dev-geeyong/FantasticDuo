@@ -9,6 +9,9 @@ import UIKit
 
 class FeedCell: UITableViewCell{
     //MARK: - Propertie
+    var viewModel: PostViewModel?{
+        didSet{configure()}
+    }
     var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -20,7 +23,7 @@ class FeedCell: UITableViewCell{
         let view = UIView()
         return view
     }()
-    var contentLabel: UILabel = {
+    var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 0
@@ -32,10 +35,18 @@ class FeedCell: UITableViewCell{
     }()
     var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 11)
         label.text = "지죵이"
         label.numberOfLines = 0
         label.textColor = .white
+        return label
+    }()
+    var postTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 10)
+        label.text = "1 day"
+        label.numberOfLines = 0
+        label.textColor = .systemGray6
         return label
     }()
     //MARK: - Lifecycle
@@ -45,7 +56,7 @@ class FeedCell: UITableViewCell{
         self.backgroundColor = .systemGray6
         addSubview(backView)
         backView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8)
-        backView.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1)
+        backView.backgroundColor = #colorLiteral(red: 0.2291348279, green: 0.2652670145, blue: 0.4071175456, alpha: 1).withAlphaComponent(0.95)
         backView.layer.cornerRadius = 8
         backView.clipsToBounds = true
         
@@ -57,12 +68,15 @@ class FeedCell: UITableViewCell{
         backView.addSubview(nicknameLabel)
         nicknameLabel.anchor(bottom: backView.bottomAnchor, right:backView.rightAnchor,paddingTop: 8, paddingBottom: 8, paddingRight: 8)
         
-        backView.addSubview(contentLabel)
-        contentLabel.anchor(top:backView.topAnchor,
+        backView.addSubview(titleLabel)
+        titleLabel.anchor(top:backView.topAnchor,
                             left:profileImageView.rightAnchor,
                             bottom:backView.bottomAnchor,
                             right: backView.rightAnchor, paddingLeft: 16, paddingRight: 5)
-        contentLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.adjustsFontSizeToFitWidth = true
+        
+        backView.addSubview(postTimeLabel)
+        postTimeLabel.anchor(top: backView.topAnchor,left: backView.leftAnchor,paddingTop: 1,paddingLeft: 5)
         
  
 //        contentLabel.centerY(inView: backView)
@@ -80,4 +94,11 @@ class FeedCell: UITableViewCell{
     //MARK: - API
     //MARK: - Actions
     //MARK: - Helpers
+    func configure(){
+        guard let viewModel = viewModel else{return}
+        titleLabel.text = viewModel.title
+        nicknameLabel.text = viewModel.nickname
+        postTimeLabel.text = viewModel.timestampString
+        profileImageView.image = viewModel.setImamge
+    }
 }

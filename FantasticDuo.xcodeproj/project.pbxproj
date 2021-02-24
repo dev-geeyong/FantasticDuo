@@ -12,6 +12,12 @@
 		466CDD7F25E4DEA600950597 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD7E25E4DEA600950597 /* PostService.swift */; };
 		466CDD8225E4E06600950597 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD8125E4E06600950597 /* Post.swift */; };
 		466CDD8925E5203B00950597 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDD8825E5203B00950597 /* PostDetailViewController.swift */; };
+		466CDDEE25E6116D00950597 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDED25E6116D00950597 /* Comment.swift */; };
+		466CDDF125E6128C00950597 /* CommnetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDF025E6128C00950597 /* CommnetService.swift */; };
+		466CDDF425E6363200950597 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDF325E6363200950597 /* PostViewModel.swift */; };
+		466CDDF825E641D400950597 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = 466CDDF725E641D400950597 /* BetterSegmentedControl */; };
+		466CDDFB25E66EE300950597 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDFA25E66EE300950597 /* CommentViewModel.swift */; };
+		466CDDFE25E67EA500950597 /* MyPostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDFD25E67EA500950597 /* MyPostListViewController.swift */; };
 		467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0625DD439500F73A3D /* AppDelegate.swift */; };
 		467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0825DD439500F73A3D /* SceneDelegate.swift */; };
 		467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0A25DD439500F73A3D /* ViewController.swift */; };
@@ -34,7 +40,6 @@
 		467ECE9E25DE9B1000F73A3D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE9D25DE9B1000F73A3D /* User.swift */; };
 		467ECEA225DE9BA800F73A3D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECEA125DE9BA800F73A3D /* AuthService.swift */; };
 		467ECEA525DE9D1C00F73A3D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECEA425DE9D1C00F73A3D /* Constants.swift */; };
-		467ECEA825DEA20B00F73A3D /* AppleLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECEA725DEA20B00F73A3D /* AppleLoginController.swift */; };
 		9C4906AE729E149D1ED798D7 /* Pods_FantasticDuo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0231D7BF6E0D4C05E9CBAA /* Pods_FantasticDuo.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +49,11 @@
 		466CDD7E25E4DEA600950597 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		466CDD8125E4E06600950597 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		466CDD8825E5203B00950597 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		466CDDED25E6116D00950597 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		466CDDF025E6128C00950597 /* CommnetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommnetService.swift; sourceTree = "<group>"; };
+		466CDDF325E6363200950597 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		466CDDFA25E66EE300950597 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		466CDDFD25E67EA500950597 /* MyPostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostListViewController.swift; sourceTree = "<group>"; };
 		467ECE0325DD439500F73A3D /* FantasticDuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FantasticDuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467ECE0625DD439500F73A3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467ECE0825DD439500F73A3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +78,6 @@
 		467ECE9D25DE9B1000F73A3D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		467ECEA125DE9BA800F73A3D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		467ECEA425DE9D1C00F73A3D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		467ECEA725DEA20B00F73A3D /* AppleLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginController.swift; sourceTree = "<group>"; };
 		5633152C88D1140DD7016BDC /* Pods-FantasticDuo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FantasticDuo.release.xcconfig"; path = "Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo.release.xcconfig"; sourceTree = "<group>"; };
 		BF0231D7BF6E0D4C05E9CBAA /* Pods_FantasticDuo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FantasticDuo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB58062EF1CC2A2D4BB9F960 /* Pods-FantasticDuo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FantasticDuo.debug.xcconfig"; path = "Target Support Files/Pods-FantasticDuo/Pods-FantasticDuo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +90,7 @@
 			files = (
 				9C4906AE729E149D1ED798D7 /* Pods_FantasticDuo.framework in Frameworks */,
 				467ECE8A25DE4C4100F73A3D /* IQKeyboardManagerSwift in Frameworks */,
+				466CDDF825E641D400950597 /* BetterSegmentedControl in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				466CDD7825E48FE300950597 /* AuthenticationViewModel.swift */,
+				466CDDF325E6363200950597 /* PostViewModel.swift */,
+				466CDDFA25E66EE300950597 /* CommentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -163,8 +175,8 @@
 				467ECE5425DD4BE100F73A3D /* ProfileController.swift */,
 				467ECE9425DE8A5C00F73A3D /* LoginController.swift */,
 				467ECE9925DE973000F73A3D /* RegistrationController.swift */,
-				467ECEA725DEA20B00F73A3D /* AppleLoginController.swift */,
 				466CDD8825E5203B00950597 /* PostDetailViewController.swift */,
+				466CDDFD25E67EA500950597 /* MyPostListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,6 +196,7 @@
 			children = (
 				467ECE9D25DE9B1000F73A3D /* User.swift */,
 				466CDD8125E4E06600950597 /* Post.swift */,
+				466CDDED25E6116D00950597 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +207,7 @@
 				467ECEA125DE9BA800F73A3D /* AuthService.swift */,
 				466CDD7B25E4977A00950597 /* UserService.swift */,
 				466CDD7E25E4DEA600950597 /* PostService.swift */,
+				466CDDF025E6128C00950597 /* CommnetService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -227,6 +241,7 @@
 			name = FantasticDuo;
 			packageProductDependencies = (
 				467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */,
+				466CDDF725E641D400950597 /* BetterSegmentedControl */,
 			);
 			productName = FantasticDuo;
 			productReference = 467ECE0325DD439500F73A3D /* FantasticDuo.app */;
@@ -257,6 +272,7 @@
 			mainGroup = 467ECDFA25DD439500F73A3D;
 			packageReferences = (
 				467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				466CDDF625E641D400950597 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
 			);
 			productRefGroup = 467ECE0425DD439500F73A3D /* Products */;
 			projectDirPath = "";
@@ -346,8 +362,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466CDDF425E6363200950597 /* PostViewModel.swift in Sources */,
 				467ECE5225DD4B9300F73A3D /* WriteController.swift in Sources */,
 				467ECE9525DE8A5C00F73A3D /* LoginController.swift in Sources */,
+				466CDDFB25E66EE300950597 /* CommentViewModel.swift in Sources */,
 				467ECE8525DE45F400F73A3D /* CustomTextField.swift in Sources */,
 				466CDD8925E5203B00950597 /* PostDetailViewController.swift in Sources */,
 				467ECE4A25DD45BC00F73A3D /* Extensions.swift in Sources */,
@@ -355,18 +373,20 @@
 				467ECE9125DE7C9200F73A3D /* ProfileCommentCell.swift in Sources */,
 				466CDD7925E48FE300950597 /* AuthenticationViewModel.swift in Sources */,
 				467ECE9E25DE9B1000F73A3D /* User.swift in Sources */,
+				466CDDEE25E6116D00950597 /* Comment.swift in Sources */,
 				467ECEA525DE9D1C00F73A3D /* Constants.swift in Sources */,
+				466CDDF125E6128C00950597 /* CommnetService.swift in Sources */,
 				467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */,
 				467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */,
 				467ECE1C25DD443400F73A3D /* MainTabController.swift in Sources */,
 				466CDD8225E4E06600950597 /* Post.swift in Sources */,
-				467ECEA825DEA20B00F73A3D /* AppleLoginController.swift in Sources */,
 				466CDD7C25E4977A00950597 /* UserService.swift in Sources */,
 				467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */,
 				466CDD7F25E4DEA600950597 /* PostService.swift in Sources */,
 				467ECE5525DD4BE100F73A3D /* ProfileController.swift in Sources */,
 				467ECEA225DE9BA800F73A3D /* AuthService.swift in Sources */,
 				467ECE5E25DD503D00F73A3D /* FeedCell.swift in Sources */,
+				466CDDFE25E67EA500950597 /* MyPostListViewController.swift in Sources */,
 				467ECE9A25DE973000F73A3D /* RegistrationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,6 +597,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		466CDDF625E641D400950597 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gmarm/BetterSegmentedControl";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 		467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -588,6 +616,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		466CDDF725E641D400950597 /* BetterSegmentedControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 466CDDF625E641D400950597 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */;
+			productName = BetterSegmentedControl;
+		};
 		467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

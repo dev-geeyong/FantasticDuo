@@ -6,37 +6,48 @@
 //
 
 import UIKit
-
-class ProfileCommentCell: UITableViewCell{
+import SwipeCellKit
+class ProfileCommentCell: SwipeTableViewCell{
     //MARK: - Propertie
+    var viewModel:CommentViewModel?{
+        didSet{
+            configure()
+        }
+    }
     private let backView: UIView = {
         let view = UIView()
         return view
     }()
-    private let contentLabel: UILabel = {
+    var contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 0
-        label.text = "버스 기사 듀오 구합니다. 진짜 잘하시는분만구합니다다다다다다잘하시는분만구합니다다다다다다"
-        label.textColor = .black
+        label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
         
         return label
     }()
-    private let nicknameLabel: UILabel = {
+    var nicknameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 11)
-        label.text = "지죵이"
+        label.font = UIFont.boldSystemFont(ofSize: 11)
         label.numberOfLines = 0
-        label.textColor = .black
+        label.textColor = .white
+        return label
+    }()
+    var postTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 10)
+        label.numberOfLines = 0
+        label.textColor = .systemGray6
         return label
     }()
     //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .systemGray6
         addSubview(backView)
-        backView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 8, paddingRight: 8)
-        backView.backgroundColor = .systemGray6
+        backView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingBottom: 10)
+        backView.backgroundColor = #colorLiteral(red: 0.2291348279, green: 0.2652670145, blue: 0.4071175456, alpha: 1)
         backView.layer.cornerRadius = 8
         backView.clipsToBounds = true
         
@@ -48,6 +59,11 @@ class ProfileCommentCell: UITableViewCell{
                             left:backView.leftAnchor,
                             bottom:backView.bottomAnchor,
                             right: backView.rightAnchor, paddingLeft: 16, paddingRight: 5)
+        backView.addSubview(postTimeLabel)
+        postTimeLabel.anchor(top:backView.topAnchor,
+                             right: backView.rightAnchor,
+                             paddingTop: 8,
+                             paddingRight: 8)
         contentLabel.adjustsFontSizeToFitWidth = true
         
  
@@ -66,4 +82,11 @@ class ProfileCommentCell: UITableViewCell{
     //MARK: - API
     //MARK: - Actions
     //MARK: - Helpers
+    func configure(){
+        guard let viewModel = viewModel else{return}
+        nicknameLabel.text = viewModel.nickname
+        contentLabel.text = viewModel.commentText
+        postTimeLabel.text = viewModel.timestampString
+        
+    }
 }
