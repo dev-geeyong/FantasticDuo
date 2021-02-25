@@ -8,11 +8,14 @@
 import UIKit
 import Firebase
 import SwipeCellKit
-
+protocol MyPostListViewControllerDelegate: class{
+    func updatePost()
+}
 private let reuseIdentifier = "MyPostListCell"
 class MyPostListViewController: UITableViewController{
     //MARK: - Propertie
-    private let posts: [Post]
+    var posts: [Post]
+    weak var delegate: MyPostListViewControllerDelegate?
     //MARK: - Lifecycle
     init(posts: [Post]){
         self.posts = posts
@@ -75,6 +78,8 @@ extension MyPostListViewController: SwipeTableViewCellDelegate{
                 
                 PostService.deleteMyPost(postid: self.posts[indexPath.row].postId) { message in
                     self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                    self.posts.remove(at: indexPath.row)
+                    //self.delegate?.updatePost()
                     self.tableView.reloadData()
                 }
                 

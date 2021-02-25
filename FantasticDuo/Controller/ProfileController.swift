@@ -89,6 +89,7 @@ class ProfileController: UIViewController {
     @objc func didTapmyPostList(){
         PostService.findMyPostsList(currentUserUid: user.uid) { post in
             let controller = MyPostListViewController(posts: post)
+            controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
             
             
@@ -227,6 +228,20 @@ extension ProfileController: UITableViewDataSource{
         cell.backgroundColor = .systemGray6
         cell.viewModel = CommentViewModel(comment: comments[indexPath.row])
         return cell
+    }
+    
+    
+}
+extension ProfileController: MyPostListViewControllerDelegate{
+    func updatePost() {
+        
+        PostService.findMyPostsList(currentUserUid: user.uid) { post in
+            print("findMyPostsList",post)
+            let controller = MyPostListViewController(posts: post)
+            controller.posts.removeAll()
+            controller.tableView.reloadData()
+        }
+        print("MyPostListViewControllerDelegate")
     }
     
     
