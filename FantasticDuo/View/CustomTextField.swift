@@ -10,13 +10,13 @@ class CustomTextField: UITextField {
         spacer.setDimensions(height: 50, width: 12)
         leftView = spacer
         leftViewMode = .always
+        layer.cornerRadius = 10
         keyboardType = .emailAddress
         borderStyle = .none
         textColor = .black
         keyboardAppearance = .dark
         backgroundColor = .systemGray6
-     
-        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: UIColor(red: 1, green: 165/255, blue: 0, alpha: 1)])
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: UIColor(red: 0.3451, green: 0.4392, blue: 0.9647, alpha: 1.0) ])
     }
     
     required init?(coder: NSCoder) {

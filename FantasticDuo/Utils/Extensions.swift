@@ -7,7 +7,7 @@
 
 import UIKit
 import JGProgressHUD
-
+import MessageUI
 extension UIViewController {
     static let hud = JGProgressHUD(style: .dark)
     
@@ -18,7 +18,14 @@ extension UIViewController {
         view.layer.addSublayer(gradient)
         gradient.frame = view.frame
     }
-    
+    func mailCompose(){
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients(["dev.geeyong@gmail.com"])
+        composer.setSubject("신고하기")
+        
+        self.present(composer, animated: true)
+    }
     func showLoader(_ show: Bool) {
         view.endEditing(true)
         
@@ -134,5 +141,14 @@ extension UIView {
         guard let view = superview else { return }
         anchor(top: view.topAnchor, left: view.leftAnchor,
                bottom: view.bottomAnchor, right: view.rightAnchor)
+    }
+}
+extension UIViewController: MFMailComposeViewControllerDelegate{
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error {
+            controller.dismiss(animated: true)
+        }
+        
+        controller.dismiss(animated: true)
     }
 }

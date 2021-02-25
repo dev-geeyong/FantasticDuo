@@ -48,9 +48,11 @@ struct PostService {
         }
     }
     static func deleteMyPost(postid: String, completion: @escaping(String)->Void){
+ 
         COLLECTION_POSTS.document(postid).delete()
         completion("삭제완료")
     }
+
 //    static func updateUserFeedAfterPost(postId: String){
 //        guard let uid = Auth.auth().currentUser?.uid else {return}
 //

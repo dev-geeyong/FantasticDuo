@@ -23,20 +23,24 @@ class LoginController: UIViewController {
     weak var delegate: AuthenticationDelegate?
     
     private let iconImage: UIImageView = {
-       let iv = UIImageView(image: #imageLiteral(resourceName: "Emblem_Challenger"))
+       let iv = UIImageView(image: #imageLiteral(resourceName: "제목 추가 (3)"))
         iv.contentMode = .scaleAspectFill
+        
         return iv
     }()
     
     private let emailTextField: CustomTextField = {
         
-        let tf = CustomTextField(placeholder: "Email")
+        let tf = CustomTextField(placeholder: "이메일")
+        tf.layer.cornerRadius = 10
         tf.setHeight(50)
+        
         return tf
     }()
     
     private let passwordTextField: CustomTextField = {
-       let tf = CustomTextField(placeholder: "Password")
+       let tf = CustomTextField(placeholder: "비밀번호")
+        tf.layer.cornerRadius = 10
         tf.setHeight(50)
         tf.isSecureTextEntry = true
         return tf
@@ -62,7 +66,7 @@ class LoginController: UIViewController {
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("로그인", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1).withAlphaComponent(0.5)
@@ -75,14 +79,8 @@ class LoginController: UIViewController {
     
     private let dontHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
-        button.attributedTitle(firstPart: "Don't have an account?  ", secondPart: "Sign Up")
+        button.attributedTitle(firstPart: "계정이 없으신가요 ? ", secondPart: "간편 회원가입 ! ")
         button.addTarget(self, action: #selector(showSignUpPage), for: .touchUpInside)
-        return button
-    }()
-    private let forgotPasswordButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.attributedTitle(firstPart: "Forgot your password?  ", secondPart: "Get help signing in.")
-        button.addTarget(self, action: #selector(handleShowResetPassword), for: .touchUpInside)
         return button
     }()
     //MARK: - Lifecycle
@@ -107,7 +105,6 @@ class LoginController: UIViewController {
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
         
-        print("currentNonce",currentNonce)
     }
     @objc func pushLoginButton(){
         guard let email = emailTextField.text else{return}
@@ -116,6 +113,7 @@ class LoginController: UIViewController {
         AuthService.logUserIn(withEmail: email, password: password){(result, error) in
             if let error = error {
                 print("debug failed to log user in \(error.localizedDescription)")
+                self.showMessage(withTitle: "로그인 실패", message: "계정을 다시 확인해주세요")
                 return
             }
             self.delegate?.authenticationDidComplete()
@@ -146,18 +144,18 @@ class LoginController: UIViewController {
     //MARK: - Helpers
     
     func configureUI(){
-        view.backgroundColor = .white
+        view.backgroundColor = #colorLiteral(red: 0.3216842711, green: 0.4426019192, blue: 1, alpha: 1)
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
         
-        configureGradientLayer()
+        //configureGradientLayer()
         
         view.addSubview(iconImage)
         iconImage.centerX(inView: view)
         iconImage.setDimensions(height: 80, width: 120)
         iconImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField,passwordTextField,loginButton,appleLoginButton,forgotPasswordButton])
+        let stackView = UIStackView(arrangedSubviews: [emailTextField,passwordTextField,loginButton,appleLoginButton])
         stackView.axis = .vertical
         stackView.spacing = 20
         
@@ -182,7 +180,10 @@ class LoginController: UIViewController {
         alert.textFields![0].placeholder = "소환사 이름"
         alert.addAction(UIAlertAction(title: "입력", style: .default, handler: { (action) in
             if let userNickname = alert.textFields![0].text {
-           
+                if userNickname == ""{
+                    self.showMessage(withTitle: "소환사 이름을 다시 입력해주세요", message: "이름에러")
+                    return
+                }
                 completions(userNickname)
                 
             }
@@ -251,14 +252,7 @@ extension LoginController: FormViewModel{
     }
 
 }
-//extension LoginController: ResetPasswordControllerDelegate{
-//    func controllerDidSendResetPasswordLink(_ controller: ResetPasswordController) {
-//        navigationController?.popViewController(animated: true)
-//        showMessage(withTitle: "성공", message: "해당 이메일으로 리셋된 비밀번호를 전송했습니다.")
-//    }
-//
-//
-//}
+
 extension LoginController: ASAuthorizationControllerDelegate,ASAuthorizationControllerPresentationContextProviding {
     
     
@@ -274,6 +268,7 @@ extension LoginController: ASAuthorizationControllerDelegate,ASAuthorizationCont
         Auth.auth().signIn(with: credential) { (result, error) in
             if let error = error {
                 print("apple eeor ", error)
+                self.showMessage(withTitle: "로그인 실패", message: "계정을 다시 확인해주세요")
             }
             self.showAlert(){ nickname in
                 self.usernickname = nickname
@@ -294,10 +289,6 @@ extension LoginController: ASAuthorizationControllerDelegate,ASAuthorizationCont
                 }
                 
             }
-            
-            
-            
-            //print("result",result?.user.uid)
             
           
         }

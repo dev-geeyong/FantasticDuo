@@ -7,7 +7,7 @@
 
 import UIKit
 import Firebase
-
+import Toast
 struct AuthCredentials {
     let email: String
     let password: String
@@ -18,15 +18,9 @@ struct AuthService {
     static func logUserIn(withEmail email: String, password:String, completion: AuthDataResultCallback?){
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
     }
-    static func registerUser(withCredential credentials: AuthCredentials, complietion: @escaping(Error?)->Void){
-        
-        Auth.auth().createUser(withEmail: credentials.email, password: credentials.password){
-            (result, error) in
-            if let error = error {
-                print("debug failed to register user \(error.localizedDescription)")
-            }
-            
-            guard let uid = result?.user.uid else{return}
+    static func registerUser(withCredential credentials: AuthCredentials, uid: String, complietion: @escaping(Error?)->Void){
+
+      
             
             let data: [String: Any] = ["nickname" : credentials.nickname,
                                        "uid": uid
@@ -34,7 +28,7 @@ struct AuthService {
             COLLECTION_USERS.document(uid).setData(data, completion: complietion)
             
         }
-    }
+    
     static func registerAppleLogin(uid: String, nickname: String, complietion: @escaping(Error?)->Void){
         
         let data: [String: Any] = ["nickname" : nickname,
@@ -42,6 +36,7 @@ struct AuthService {
         COLLECTION_USERS.document(uid).setData(data, completion: complietion)
         
     }
+
     
     
 }

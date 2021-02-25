@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class FeedCell: UITableViewCell{
+class FeedCell: SwipeTableViewCell{
     //MARK: - Propertie
     var viewModel: PostViewModel?{
         didSet{configure()}

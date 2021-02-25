@@ -7,18 +7,21 @@
 
 import UIKit
 import Firebase
+import SwipeCellKit
+import MessageUI
 private let reuseIdentifier = "ProfileCell"
 class ProfileController: UIViewController {
     
     //MARK: - Propertie
     private var user: User
     private var comments = [Comment]()
+    let currentUid = Auth.auth().currentUser?.uid
     init(user: User){
         self.user = user
         super.init(nibName: nil, bundle: nil)
         
     }
-    
+    var TF = true
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,10 +48,10 @@ class ProfileController: UIViewController {
     }()
     private lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "comment"), for: .normal)
         button.tintColor = .white
+        button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.addTarget(self, action: #selector(didTapComments), for: .touchUpInside)
-        button.setTitle("소환사 한줄평", for: .normal)
+        button.setTitle(" 소환사 한 줄 평", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         return button
     }()
@@ -79,10 +82,25 @@ class ProfileController: UIViewController {
         configureUI()
         fetchComments()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchComments()
+    }
     //MARK: - API
     func fetchComments(){
         CommnetService.fetchComments(uid: user.uid) { comments in
             self.comments = comments
+            if comments.count == 0 {
+                self.commentMark.text = "소환사 한 줄 평이 없습니다."
+            }else{
+                self.commentMark.text = "- 소환사 한 줄 평 -"
+                if Auth.auth().currentUser?.uid == self.comments[0].profileUid{
+                    self.TF = true
+                }else{
+                    self.TF = false
+                }
+            }
+            
             self.tableView.reloadData()
         }
     }
@@ -193,6 +211,8 @@ class ProfileController: UIViewController {
             myPostListButton.isHidden = false
             changeButton.isHidden = false
         }
+        
+        
 
     }
     
@@ -241,8 +261,14 @@ extension ProfileController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //tableView.deselectRow(at: indexPath, animated: false)
 //        let post = comments[indexPath.row]
-//        let controller = PostDetailViewController(post: post)
-//        self.navigationController?.pushViewController(controller, animated: true)
+        if self.currentUid != comments[indexPath.row].uid{
+            UserService.fetchUser(withUid: comments[indexPath.row].uid) { (user) in
+                let controller = ProfileController(user: user)
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
+        
+       
     }
 }
 extension ProfileController: UITableViewDataSource{
@@ -254,6 +280,7 @@ extension ProfileController: UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ProfileCommentCell
         cell.selectionStyle = .none
         cell.backgroundColor = .systemGray6
+        cell.delegate = self
         cell.viewModel = CommentViewModel(comment: comments[indexPath.row])
         return cell
     }
@@ -270,6 +297,78 @@ extension ProfileController: MyPostListViewControllerDelegate{
             controller.tableView.reloadData()
         }
         print("MyPostListViewControllerDelegate")
+    }
+    
+    
+}
+
+extension ProfileController: SwipeTableViewCellDelegate{
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        switch orientation {
+        case .right:
+            
+            let deleteAction = SwipeAction(style: .destructive, title: nil, handler: {action, indexPath in
+                if Auth.auth().currentUser?.uid == self.comments[0].profileUid{
+                
+                CommnetService.deleteMyComment(commentid: self.comments[indexPath.row].commentId) { message in
+                    self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                    self.comments.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                }
+                
+                }else{
+                
+                    self.mailCompose()
+                    self.tableView.reloadData()
+                }
+                
+            })
+            
+            deleteAction.title = self.TF ? "삭제하기" : "신고하기"
+            deleteAction.image = UIImage(systemName: self.TF ? "trash.fill" : "exclamationmark.bubble")
+            deleteAction.backgroundColor = self.TF ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+ 
+            return [deleteAction]
+
+            
+        case .left:
+            
+            let deleteAction = SwipeAction(style: .destructive, title: nil, handler: {action, indexPath in
+                if Auth.auth().currentUser?.uid == self.comments[0].profileUid{
+                
+                CommnetService.deleteMyComment(commentid: self.comments[indexPath.row].commentId) { message in
+                    self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                    self.comments.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                }
+                
+                }else{
+                
+                    self.mailCompose()
+                    self.tableView.reloadData()
+                }
+                
+            })
+            
+            deleteAction.title = self.TF ? "삭제하기" : "신고하기"
+            deleteAction.image = UIImage(systemName: self.TF ? "trash.fill" : "exclamationmark.bubble")
+            deleteAction.backgroundColor = self.TF ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+ 
+            return [deleteAction]
+
+       
+        }
+        
+    }
+       
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .none
+        options.transitionStyle = .drag
+        
+        return options
     }
     
     

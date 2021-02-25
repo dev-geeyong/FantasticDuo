@@ -13,8 +13,10 @@ struct Comment {
     let nickname: String
     let timestapm: Timestamp
     let commentText: String
+    let commentId: String
     
-    init(dictionary: [String:Any]){
+    init(commentId: String, dictionary: [String:Any]){
+        self.commentId = commentId
         self.profileUid = dictionary["profileUid"] as? String ?? ""
         self.uid = dictionary["uid"] as? String ?? ""
         self.nickname = dictionary["nickname"] as? String ?? ""

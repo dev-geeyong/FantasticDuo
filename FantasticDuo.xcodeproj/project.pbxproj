@@ -18,6 +18,7 @@
 		466CDDF825E641D400950597 /* BetterSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = 466CDDF725E641D400950597 /* BetterSegmentedControl */; };
 		466CDDFB25E66EE300950597 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDFA25E66EE300950597 /* CommentViewModel.swift */; };
 		466CDDFE25E67EA500950597 /* MyPostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466CDDFD25E67EA500950597 /* MyPostListViewController.swift */; };
+		466F49C625E7853E0076580E /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 466F49C525E7853E0076580E /* Toast */; };
 		467ECE0725DD439500F73A3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0625DD439500F73A3D /* AppDelegate.swift */; };
 		467ECE0925DD439500F73A3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0825DD439500F73A3D /* SceneDelegate.swift */; };
 		467ECE0B25DD439500F73A3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467ECE0A25DD439500F73A3D /* ViewController.swift */; };
@@ -88,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466F49C625E7853E0076580E /* Toast in Frameworks */,
 				9C4906AE729E149D1ED798D7 /* Pods_FantasticDuo.framework in Frameworks */,
 				467ECE8A25DE4C4100F73A3D /* IQKeyboardManagerSwift in Frameworks */,
 				466CDDF825E641D400950597 /* BetterSegmentedControl in Frameworks */,
@@ -242,6 +244,7 @@
 			packageProductDependencies = (
 				467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */,
 				466CDDF725E641D400950597 /* BetterSegmentedControl */,
+				466F49C525E7853E0076580E /* Toast */,
 			);
 			productName = FantasticDuo;
 			productReference = 467ECE0325DD439500F73A3D /* FantasticDuo.app */;
@@ -273,6 +276,7 @@
 			packageReferences = (
 				467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				466CDDF625E641D400950597 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */,
+				466F49C425E7853E0076580E /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 467ECE0425DD439500F73A3D /* Products */;
 			projectDirPath = "";
@@ -605,6 +609,14 @@
 				minimumVersion = 2.0.1;
 			};
 		};
+		466F49C425E7853E0076580E /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		467ECE8825DE4C4100F73A3D /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -620,6 +632,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 466CDDF625E641D400950597 /* XCRemoteSwiftPackageReference "BetterSegmentedControl" */;
 			productName = BetterSegmentedControl;
+		};
+		466F49C525E7853E0076580E /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 466F49C425E7853E0076580E /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 		467ECE8925DE4C4100F73A3D /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

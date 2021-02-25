@@ -6,7 +6,8 @@
 //
 
 import UIKit
-
+import Firebase
+import SafariServices
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
@@ -14,23 +15,21 @@ class RegistrationController: UIViewController {
     private var profileImage: UIImage?
     weak var delegate: AuthenticationDelegate?
 
-    private let pushImageButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "Emblem_Gold"), for: .normal)
-        button.tintColor = .white
-        button.addTarget(self, action: #selector(setUserImage), for: .touchUpInside)
-         
-        return button
+    private let iconImage: UIImageView = {
+       let iv = UIImageView(image: #imageLiteral(resourceName: "제목 추가 (3)"))
+        iv.contentMode = .scaleAspectFill
+        
+        return iv
     }()
     private let emailTextField: CustomTextField = {
         
-        let tf = CustomTextField(placeholder: "Email")
+        let tf = CustomTextField(placeholder: "이메일")
         tf.setHeight(50)
         return tf
     }()
     
     private let passwordTextField: CustomTextField = {
-       let tf = CustomTextField(placeholder: "Password")
+       let tf = CustomTextField(placeholder: "비밀번호")
         tf.isSecureTextEntry = true
         tf.setHeight(50)
         return tf
@@ -44,7 +43,7 @@ class RegistrationController: UIViewController {
     
     private let signUpButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
+        button.setTitle("회원가입", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1).withAlphaComponent(0.5)
@@ -56,36 +55,47 @@ class RegistrationController: UIViewController {
     }()
     private let alreadyAccountButton: UIButton = {
         let button = UIButton(type: .system)
-        button.attributedTitle(firstPart: "already have an account?  ", secondPart: "Log In")
+        button.attributedTitle(firstPart: "이미 계정이있다면  ", secondPart: "로그인 화면으로")
         button.addTarget(self, action: #selector(showloginPage), for: .touchUpInside)
         return button
     }()
+    private let termsAndConditions: UIButton = {
+        let button = UIButton(type: .system)
+        button.attributedTitle(firstPart: "", secondPart: "가입함으로 이용약관 및 개인정보 보호정책에 동의합니다.")
+        button.addTarget(self, action: #selector(showTermsAndConditions), for: .touchUpInside)
+        return button
+    }()
     //MARK: - Actions
-    
+    @objc func showTermsAndConditions(){
+        let vc = SFSafariViewController(url: URL(string: "https://dev-geeyong.tistory.com/39")!)
+        present(vc, animated: true)
+    }
     @objc func showloginPage(){
         navigationController?.popViewController(animated: true)
-    }
-    @objc func setUserImage(){
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.allowsEditing = true
-        
-        present(picker, animated: true, completion: nil)
     }
     @objc func pushSignUpButton(){
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         guard let nickname = nicknameTextField.text else {return}
-//        guard let username = usernameTextField.text?.lowercased() else {return}
-//        guard let profileImage = self.profileImage else {return}
-//
+
         let credentials = AuthCredentials(email: email, password: password, nickname: nickname)
-        AuthService.registerUser(withCredential: credentials) { error in
+  
+        Auth.auth().createUser(withEmail: credentials.email, password: credentials.password){
+            (result, error) in
             if let error = error {
                 print("debug failed to register user \(error.localizedDescription)")
+                self.showMessage(withTitle: "회원가입 실패", message: "이미 사용 중인 이메일이거나 입력이 잘못됐습니다.")
+
             }
-            //self.dismiss(animated: true, completion: nil)
-            self.delegate?.authenticationDidComplete()
+            guard let uid = result?.user.uid else{return}
+            AuthService.registerUser(withCredential: credentials, uid: uid) { (error) in
+                if let error = error {
+                    
+                    print("debug failed to register user \(error.localizedDescription)")
+                    
+                }
+                self.delegate?.authenticationDidComplete()
+            }
         }
     }
     
@@ -113,19 +123,25 @@ class RegistrationController: UIViewController {
     //MARK: - Helpers
     
     func configureUI(){
-        configureGradientLayer()
-        view.addSubview(pushImageButton)
-        pushImageButton.centerX(inView: view)
-        pushImageButton.setDimensions(height: 140, width: 140)
-        pushImageButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
+    
+        view.backgroundColor = #colorLiteral(red: 0.3216842711, green: 0.4426019192, blue: 1, alpha: 1)
+        view.addSubview(iconImage)
+        iconImage.centerX(inView: view)
+        iconImage.setDimensions(height: 80, width: 120)
+        iconImage.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         
         let stackView = UIStackView(arrangedSubviews: [emailTextField,passwordTextField,nicknameTextField,signUpButton])
         stackView.axis = .vertical
         stackView.spacing = 20
         
         view.addSubview(stackView)
-        stackView.anchor(top: pushImageButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+        
+        stackView.anchor(top: iconImage.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                          paddingTop: 32, paddingLeft: 32,paddingRight: 32)
+        
+        view.addSubview(termsAndConditions)
+        termsAndConditions.centerX(inView: view)
+        termsAndConditions.anchor(top: stackView.bottomAnchor, paddingTop: 22)
         
         view.addSubview(alreadyAccountButton)
         alreadyAccountButton.centerX(inView: view)
@@ -148,22 +164,3 @@ extension RegistrationController: FormViewModel{
     }
 }
 
-extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        guard let selectImage = info[.editedImage] as? UIImage else {
-            return
-        }
-        profileImage = selectImage
-        pushImageButton.layer.cornerRadius = pushImageButton.frame.width / 2
-        pushImageButton.layer.masksToBounds = true
-        pushImageButton.layer.borderColor = UIColor.white.cgColor
-        pushImageButton.layer.borderWidth = 2
-        pushImageButton.setImage(selectImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        
-        dismiss(animated: true, completion: nil)
-        
-        
-    }
-}

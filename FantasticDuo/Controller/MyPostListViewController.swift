@@ -33,6 +33,7 @@ class MyPostListViewController: UITableViewController{
     //MARK: - Actions
     //MARK: - Helpers
     func configureTableView(){
+        navigationItem.title = "스와이프로 글 삭제"
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = .systemGray6

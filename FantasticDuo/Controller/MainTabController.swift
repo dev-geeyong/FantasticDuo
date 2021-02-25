@@ -67,7 +67,7 @@ class MainTabController: UITabBarController{
 //MARK: - UITabBarControllerDelegate
 extension MainTabController: UITabBarControllerDelegate{
 //    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        
+//
 //        let index = viewControllers?.firstIndex(of: viewController)
 //        if index == 1 {
 //            checkIfUserIsLoggedIn()

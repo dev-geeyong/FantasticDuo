@@ -7,11 +7,16 @@
 
 import  UIKit
 import Firebase
+import SwipeCellKit
+import MessageUI
 private let reuseIdentifier = "Cell"
 
 
 class FeedController: UIViewController {
     //MARK: - Propertie
+    var TF:[Bool] = []
+    
+    let currentUid = Auth.auth().currentUser?.uid
     private var posts = [Post](){
         didSet {  tableView.reloadData()}
     }
@@ -20,17 +25,11 @@ class FeedController: UIViewController {
     private var isSearchMode: Bool {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
-    let segmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["전체","아/브","실","골","플","다"])
-        sc.selectedSegmentIndex = 0
-        sc.addTarget(self, action: #selector(handleSegment), for: .valueChanged)
-        
-        return sc
-    }()
     let tableView = UITableView(frame: .zero, style: .plain)
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         configureSearchController()
         fetchFeed()
         configureUI()
@@ -46,10 +45,6 @@ class FeedController: UIViewController {
     }
 }
     //MARK: - Actions
-    @objc func handleSegment(){
-        print(segmentedControl.selectedSegmentIndex)
-        
-    }
     @objc func handeleRefresh(){
         posts.removeAll()
         fetchFeed()
@@ -83,12 +78,7 @@ class FeedController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .systemGray6
         
-        
-//        let refresher = UIRefreshControl()
-//        refresher.addTarget(self, action: #selector(handeleRefresh), for: .valueChanged)
-//        tableView.refreshControl = refresher
-        
-        
+            
         navigationItem.title = "환상의 듀오"
         
     }
@@ -108,11 +98,20 @@ extension FeedController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        for _ in 0...posts.count {
+            self.TF.append(true)
+        }
+      
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FeedCell
+        cell.delegate = self
         cell.selectionStyle = .none
         let user = isSearchMode ? filteredPosts[indexPath.row] : posts[indexPath.row]
+        if currentUid == user.ownerUid {
+            self.TF[indexPath.row] = true
+        }else{
+            self.TF[indexPath.row] = false
+        }
         cell.viewModel = PostViewModel(post: user)
-        
         return cell
     }
     
@@ -144,27 +143,75 @@ extension FeedController: UISearchBarDelegate{
         searchBar.text = nil
     }
 }
-//  extension FeedController  {
-//
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 5
-//    }
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FeedCell
-////        cell.backgroundColor = UIColor.white
-////                cell.layer.borderColor = UIColor.black.cgColor
-////                cell.layer.borderWidth = 1
-////                cell.layer.cornerRadius = 8
-////                cell.clipsToBounds = true
-//        return cell
-//    }
-//}
-//
-////MARK: - UITableViewDelegate
-//extension FeedController {
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//    }
-//}
+
+extension FeedController: SwipeTableViewCellDelegate{
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        switch orientation {
+        case .right:
+            
+            let deleteAction = SwipeAction(style: .destructive, title: nil, handler: {action, indexPath in
+                if Auth.auth().currentUser?.uid == self.posts[indexPath.row].ownerUid{
+                
+                    PostService.deleteMyPost(postid: self.posts[indexPath.row].postId) { message in
+                        self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                        self.posts.remove(at: indexPath.row)
+                        self.tableView.reloadData()
+                    }
+                
+                }else{
+                
+                    self.mailCompose()
+                    self.tableView.reloadData()
+                }
+                
+            })
+            
+            deleteAction.title = self.TF[indexPath.row] ? "삭제하기" : "신고하기"
+            deleteAction.image = UIImage(systemName: self.TF[indexPath.row] ? "trash.fill" : "exclamationmark.bubble")
+            deleteAction.backgroundColor = self.TF[indexPath.row] ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+ 
+            return [deleteAction]
+
+            
+        case .left:
+            
+            let deleteAction = SwipeAction(style: .destructive, title: nil, handler: {action, indexPath in
+                if Auth.auth().currentUser?.uid == self.posts[indexPath.row].ownerUid{
+                
+                    PostService.deleteMyPost(postid: self.posts[indexPath.row].postId) { message in
+                        self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                        self.posts.remove(at: indexPath.row)
+                        self.tableView.reloadData()
+                    }
+                
+                }else{
+                
+                    self.mailCompose()
+                    self.tableView.reloadData()
+                }
+                
+            })
+            
+            deleteAction.title = self.TF[indexPath.row] ? "삭제하기" : "신고하기"
+            deleteAction.image = UIImage(systemName: self.TF[indexPath.row] ? "trash.fill" : "exclamationmark.bubble")
+            deleteAction.backgroundColor = self.TF[indexPath.row] ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+ 
+            return [deleteAction]
+
+       
+        }
+        
+    }
+       
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .none
+        options.transitionStyle = .drag
+        
+        return options
+    }
+    
+    
+}
