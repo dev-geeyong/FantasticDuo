@@ -18,4 +18,8 @@ struct UserService {
             completion(user)
         }
     }
+    static func updateUserNickname(uid :String, nickname: String, completion: @escaping(String)->Void){
+        COLLECTION_USERS.document(uid).updateData(["nickname" : nickname])
+        completion("완료")
+    }
 }

@@ -79,15 +79,8 @@ extension MyPostListViewController: SwipeTableViewCellDelegate{
                 PostService.deleteMyPost(postid: self.posts[indexPath.row].postId) { message in
                     self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
                     self.posts.remove(at: indexPath.row)
-                    //self.delegate?.updatePost()
                     self.tableView.reloadData()
                 }
-                
-//                DispatchQueue.main.async {
-//
-//                    self.configureTableView()
-//
-//                }
                 
                 
             })
@@ -103,15 +96,10 @@ extension MyPostListViewController: SwipeTableViewCellDelegate{
                 
                 PostService.deleteMyPost(postid: self.posts[indexPath.row].postId) { message in
                     self.showMessage(withTitle: message, message: "작성한 글 삭제완료")
+                    self.posts.remove(at: indexPath.row)
                     self.tableView.reloadData()
                 }
-                
-//                DispatchQueue.main.async {
-//
-//                    self.configureTableView()
-//
-//                }
-                
+                          
                 
             })
             deleteAction.title = "삭제하기"

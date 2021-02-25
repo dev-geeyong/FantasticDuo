@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 
 struct User {
-    let nickname: String
+    var nickname: String
     let uid: String
     
     init(dictionary :[String:Any]){

@@ -16,6 +16,7 @@ class ProfileController: UIViewController {
     init(user: User){
         self.user = user
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -96,13 +97,26 @@ class ProfileController: UIViewController {
         }
     }
     @objc func didTapChange(){
+        guard let uid = Auth.auth().currentUser?.uid else{ return }
+        
+        showAlertForChangeName { nickname in
+            UserService.updateUserNickname(uid: uid, nickname: nickname) { sign in
+                print(sign)
+                UserService.fetchUser(withUid: uid) { user in
+                    self.user = user
+                    self.nicknameLabel.text = user.nickname
+                }
+            }
+        }
+        
+        
         
     }
     @objc func didTapComments(){
         guard let uid = Auth.auth().currentUser?.uid else{ return } //작성하는 지금 나
         UserService.fetchUser(withUid: uid) { currentUser in
             if uid != self.user.uid{ //프로필 계정주인이랑..
-                self.showAlert { conmment in
+                self.showAlertForComment { conmment in
                     
                     CommnetService.uploadComment(comment: conmment, user: currentUser, profileUid: self.user.uid) { error in
                         if let error = error {print(error.localizedDescription)}
@@ -114,9 +128,7 @@ class ProfileController: UIViewController {
                 }
             }
         }
-        
-        
-       
+  
         
     }
     @objc func didTapLogout(){
@@ -159,6 +171,7 @@ class ProfileController: UIViewController {
         headerView.addSubview(nicknameLabel)
         nicknameLabel.anchor(left: headerView.leftAnchor,paddingLeft: 32)
         nicknameLabel.centerY(inView: headerView)
+        nicknameLabel.text = user.nickname
         
         let stackview = UIStackView(arrangedSubviews: [commentButton,myPostListButton,changeButton,changeButton])
         headerView.addSubview(stackview)
@@ -166,7 +179,7 @@ class ProfileController: UIViewController {
         stackview.distribution = .fillEqually
         stackview.anchor(top: headerView.topAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor,paddingRight: 16)
         
-        nicknameLabel.text = user.nickname
+        
         guard let currentUid = Auth.auth().currentUser?.uid else{return}
         if user.uid != currentUid{
             self.navigationItem.rightBarButtonItem = nil
@@ -180,18 +193,33 @@ class ProfileController: UIViewController {
             myPostListButton.isHidden = false
             changeButton.isHidden = false
         }
-//        headerView.addSubview(nicknameLabel)
-//        nicknameLabel.anchor(top: headerView.topAnchor, left: headerView.leftAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor,paddingLeft: 32)
-//        headerView.addSubview(commentButton)
-//        commentButton.anchor(top: headerView.topAnchor, bottom: headerView.bottomAnchor, right: headerView.rightAnchor, paddingRight: 16)
-        
-        
+
     }
-    func showAlert(completions: @escaping(String)->Void){
+    
+    func showAlertForComment(completions: @escaping(String)->Void){
         
         let alert = UIAlertController(title: "소환사 한 줄 평", message: "소환사의 한 줄 평을 입력해주세요", preferredStyle: .alert)
         alert.addTextField()
         alert.textFields![0].placeholder = "한 줄 평"
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "입력", style: .default, handler: { (action) in
+            if let userComment = alert.textFields![0].text {
+           
+                completions(userComment)
+                
+            }
+        }))
+        
+        self.present(alert, animated: true )
+        
+        
+        
+    }
+    func showAlertForChangeName(completions: @escaping(String)->Void){
+        
+        let alert = UIAlertController(title: "소환사이름 변경", message: "변경할 소환사 이름을 입력해주세요", preferredStyle: .alert)
+        alert.addTextField()
+        alert.textFields![0].placeholder = "소환사 이름"
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "입력", style: .default, handler: { (action) in
             if let userNickname = alert.textFields![0].text {
