@@ -22,7 +22,7 @@ extension UIViewController {
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
         composer.setToRecipients(["dev.geeyong@gmail.com"])
-        composer.setSubject("신고하기")
+        composer.setSubject("신고하는 사람의 소환사 이름을 적어주세요!")
         
         self.present(composer, animated: true)
     }

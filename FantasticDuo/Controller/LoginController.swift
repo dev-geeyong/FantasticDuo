@@ -53,16 +53,7 @@ class LoginController: UIViewController {
         return button
     }()
     ////////////////////
-    func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName,.email]
-        
-        let nonce = randomNonceString()
-        request.nonce = sha256(nonce)
-        currentNonce = nonce
-        return request
-    }
+    
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -91,6 +82,7 @@ class LoginController: UIViewController {
         configureUI()
         configureNotificationObservers()
     }
+
     //MARK: - Actions
     @objc func handleSignInWithAppleTapped(){
         currentNonce = randomNonceString()
@@ -194,7 +186,16 @@ class LoginController: UIViewController {
         
         
     }
-    
+    func createAppleIDRequest() -> ASAuthorizationAppleIDRequest {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName,.email]
+        
+        let nonce = randomNonceString()
+        request.nonce = sha256(nonce)
+        currentNonce = nonce
+        return request
+    }
     //https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
       precondition(length > 0)
@@ -252,11 +253,9 @@ extension LoginController: FormViewModel{
     }
 
 }
+//MARK: - apple login
 
 extension LoginController: ASAuthorizationControllerDelegate,ASAuthorizationControllerPresentationContextProviding {
-    
-    
-
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     
     if let nonce = currentNonce,

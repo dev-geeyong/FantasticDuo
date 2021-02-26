@@ -23,10 +23,18 @@
                                     <constraint firstAttribute="width" constant="350" id="owN-Rw-Qca"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* 환상의 듀오의 모든 글은 옆으로 밀어 신고/삭제가 가능합니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-cQ-3SE">
+                                <rect key="frame" x="34" y="62" width="346.5" height="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.40784313725490196" green="0.38431372549019605" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="LNR-cQ-3SE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bpf-xZ-PLZ"/>
+                            <constraint firstItem="LNR-cQ-3SE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="18" id="g3R-UD-dYQ"/>
                             <constraint firstItem="BQc-Hk-yqb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="hOu-zp-OGc"/>
                             <constraint firstItem="BQc-Hk-yqb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="s7Y-cH-TD3"/>
                         </constraints>

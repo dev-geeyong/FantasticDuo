@@ -34,9 +34,8 @@ class MainTabController: UITabBarController{
     //MARK: - Actions
     //MARK: - Helpers
     func configureViewController(withUser user: User){
-        self.delegate = self
         let feed = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: FeedController())
-        let write = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: WriteController(user: user))
+        let write = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: WriteController())
         let profile = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: ProfileController(user: user))
         
         
@@ -64,31 +63,13 @@ class MainTabController: UITabBarController{
     }
     
 }
-//MARK: - UITabBarControllerDelegate
-extension MainTabController: UITabBarControllerDelegate{
-//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//
-//        let index = viewControllers?.firstIndex(of: viewController)
-//        if index == 1 {
-//            checkIfUserIsLoggedIn()
-//        }
-//        return true
-//    }
-}
+//MARK: - AuthenticationDelegate
 
 extension MainTabController: AuthenticationDelegate{
     func authenticationDidComplete() {
         print("authenticationDidComplete")
         fetchUser()
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    
-}
-extension MainTabController: WriteControllerDelegate{
-    func test() {
-        print("프로톸")
-        
     }
     
     

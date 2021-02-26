@@ -36,6 +36,7 @@ class FeedController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        showLoader(true)
         handeleRefresh()
     }
     //MARK: - API
@@ -43,6 +44,7 @@ class FeedController: UIViewController {
         PostService.fetchFeedPosts { post in
         self.posts = post
     }
+        showLoader(false)
 }
     //MARK: - Actions
     @objc func handeleRefresh(){

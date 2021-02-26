@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import SwipeCellKit
 import MessageUI
+import SafariServices
 private let reuseIdentifier = "ProfileCell"
 class ProfileController: UIViewController {
     
@@ -25,6 +26,13 @@ class ProfileController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    private let termsAndConditions: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("정보 / 오픈소스 라이선스", for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(showTermsAndConditions), for: .touchUpInside)
+        return button
+    }()
     let tableView = UITableView(frame: .zero, style: .plain)
     private var headerView: UIView = {
         let view = UIView()
@@ -57,20 +65,20 @@ class ProfileController: UIViewController {
     }()
     private lazy var myPostListButton: UIButton = {
         let button = UIButton(type: .system)
-        
+        button.setImage(UIImage(systemName: "doc.text.magnifyingglass"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(didTapmyPostList), for: .touchUpInside)
-        button.setTitle("내가 작성한 글", for: .normal)
+        button.setTitle(" 내가 작성한 글", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         
         return button
     }()
     private lazy var changeButton: UIButton = {
         let button = UIButton(type: .system)
-        
+        button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(didTapChange), for: .touchUpInside)
-        button.setTitle("소환사이름 변경", for: .normal)
+        button.setTitle(" 소환사 이름변경", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         return button
     }()
@@ -84,6 +92,7 @@ class ProfileController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        showLoader(true)
         fetchComments()
     }
     //MARK: - API
@@ -102,9 +111,14 @@ class ProfileController: UIViewController {
             }
             
             self.tableView.reloadData()
+            self.showLoader(false)
         }
     }
     //MARK: - Actions
+    @objc func showTermsAndConditions(){
+        let vc = SFSafariViewController(url: URL(string: "https://dev-geeyong.tistory.com/40")!)
+        present(vc, animated: true)
+    }
     @objc func didTapmyPostList(){
         PostService.findMyPostsList(currentUserUid: user.uid) { post in
             let controller = MyPostListViewController(posts: post)
@@ -135,7 +149,10 @@ class ProfileController: UIViewController {
         UserService.fetchUser(withUid: uid) { currentUser in
             if uid != self.user.uid{ //프로필 계정주인이랑..
                 self.showAlertForComment { conmment in
-                    
+                    if conmment.count > 90{
+                        self.showMessage(withTitle: "글자수 초과", message: "90글자 이상은 글을 쓸 수 없습니다. 다시 입력해주세요!")
+                        return
+                    }
                     CommnetService.uploadComment(comment: conmment, user: currentUser, profileUid: self.user.uid) { error in
                         if let error = error {print(error.localizedDescription)}
                         
@@ -179,8 +196,10 @@ class ProfileController: UIViewController {
         tableView.separatorStyle = .none
         
         view.addSubview(stack)
-        
-        stack.anchor(top:view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor,bottom:view.bottomAnchor, right: view.rightAnchor,paddingTop: 12,paddingLeft: 12,paddingBottom: 12,paddingRight: 12)
+        view.addSubview(termsAndConditions)
+        termsAndConditions.anchor(bottom:view.safeAreaLayoutGuide.bottomAnchor,paddingBottom: 20)
+        termsAndConditions.centerX(inView: view)
+        stack.anchor(top:view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor,bottom:termsAndConditions.topAnchor, right: view.rightAnchor,paddingTop: 12,paddingLeft: 12,paddingBottom: 12,paddingRight: 12)
 
         headerView.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1)
         headerView.layer.cornerRadius = 8

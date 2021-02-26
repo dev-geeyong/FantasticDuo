@@ -50,10 +50,6 @@ extension MyPostListViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         tableView.reloadData()
-        //tableView.deselectRow(at: indexPath, animated: false)
-//        let post = comments[indexPath.row]
-//        let controller = PostDetailViewController(post: post)
-//        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 extension MyPostListViewController{

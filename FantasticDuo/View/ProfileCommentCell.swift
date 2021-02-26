@@ -58,7 +58,7 @@ class ProfileCommentCell: SwipeTableViewCell{
         contentLabel.anchor(top:backView.topAnchor,
                             left:backView.leftAnchor,
                             bottom:backView.bottomAnchor,
-                            right: backView.rightAnchor, paddingLeft: 16, paddingRight: 5)
+                            right: nicknameLabel.leftAnchor, paddingLeft: 16, paddingRight: 5)
         backView.addSubview(postTimeLabel)
         postTimeLabel.anchor(top:backView.topAnchor,
                              right: backView.rightAnchor,

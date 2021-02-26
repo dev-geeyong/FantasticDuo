@@ -1,26 +1,18 @@
 
 
 import UIKit
+import Firebase
 protocol WriteControllerDelegate: class {
     func test()
 }
 class WriteController: UIViewController{
     //MARK: - Propertie
     weak var delegate: WriteControllerDelegate?
-    private var currentuser: User?
-    init(user: User){
-        self.currentuser = user
-        super.init(nibName: nil, bundle: nil)
-        
-    }
+    var currentuser: User?
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     let segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["아이언","브론즈","실버","골드","플레","다이아"])
-        //sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegment), for: .valueChanged)
         return sc
     }()
@@ -74,40 +66,40 @@ class WriteController: UIViewController{
         print("handleSubmmitButton")
         guard let title = titleTextField.text else{ return }
         guard let content = contentTextField.text else {return}
-        guard let user = currentuser else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {return}
         let rank = segmentedControl.selectedSegmentIndex
         
         if rank == -1 {
             showMessage(withTitle: "티어를 선택해주세요!", message: "글을 올리기위해 티어를 선택해주세요")
             return
         }
-        
-        PostService.uploadPost(title: title, content: content, rank: rank, user: user) { error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+        UserService.fetchUser(withUid: uid) { (user) in
+            self.showLoader(true)
+            PostService.uploadPost(title: title, content: content, rank: rank, user: user) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                self.titleTextField.text = ""
+                self.contentTextField.text = ""
+                self.submmitButton.isEnabled = false
+                self.showLoader(false)
+                self.tabBarController?.selectedIndex = 0
             }
-            self.titleTextField.text = ""
-            self.contentTextField.text = ""
-            self.submmitButton.isEnabled = false
-            self.tabBarController?.selectedIndex = 0
-            self.delegate?.test()
         }
+        
         
     }
     //MARK: - Helpers
     func configureUI(){
         view.backgroundColor = .white
         segmentedControl.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1)
-        
+        navigationItem.title = "글쓰기"
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
         UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes, for: .normal)
         UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes2, for: .selected)
-        
-//        let paddedStackView = UIStackView(arrangedSubviews: [segmentedControl])
-//        paddedStackView.layoutMargins = .init(top: 5, left: 5, bottom: 5, right: 5)
-//        paddedStackView.isLayoutMarginsRelativeArrangement = true
+
         let stackView = UIStackView(arrangedSubviews: [segmentedControl,titleTextField,contentTextField,submmitButton])
         stackView.axis = .vertical
         stackView.spacing = 20
@@ -119,16 +111,17 @@ class WriteController: UIViewController{
         
     }
   
-   
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//
-//    }
 }
 extension WriteController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if titleTextField.text != "" && contentTextField.text != "" {
+        if titleTextField.text != "" && contentTextField.text != "" && titleTextField.text!.count < 90{
             submmitButton.isEnabled = true
             submmitButton.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1)
+        }
+        else if titleTextField.text!.count > 90 || contentTextField.text!.count > 90 {
+            showMessage(withTitle: "글자수 초과", message: "90글자 이상은 글을 쓸 수 없습니다.")
+            submmitButton.isEnabled = false
+            submmitButton.backgroundColor = #colorLiteral(red: 0.2063752115, green: 0.5944960713, blue: 0.8571043611, alpha: 1).withAlphaComponent(0.5)
         }
         else{
             submmitButton.isEnabled = false
