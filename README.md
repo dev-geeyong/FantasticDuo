@@ -8,7 +8,7 @@
 #### - 기여도 : iOS(100%)
 #### - 사용스킬 : iOS, Swift, Firebase, MVVM 패턴, 스토리보드 사용X
 #### - 앱스토어링크 [AppStore - 환상의 듀오](https://apps.apple.com/kr/app/%ED%99%98%EC%83%81%EC%9D%98-%EB%93%80%EC%98%A4/id1555669073)
-
+#### - 후기 : 스토리보드 없이 코드기반으로 프로젝트를 진행하는 것의 장점을 직접 경험하기 위해 anchor에 대해 학습하여 Autolayout 사용에 대한 지식을 습득할 수 있었습니다. MVVM 디자인패턴을 적용해보면서 디자인패턴에 관해 학습할 수 있었고 로그인 화면에서 애플로그인 기능을 추가하며 학습할 수 있었습니다.  
 #### [회원가입/로그인/애플로그인], [게시글 검색/신고]
 ![Mar-01-2021 20-16-23](https://user-images.githubusercontent.com/55137069/109490502-a9c2d580-7acb-11eb-9b5e-065aa29f96c0.gif) ![Mar-01-2021 20-14-39](https://user-images.githubusercontent.com/55137069/109490524-b0e9e380-7acb-11eb-8176-f5f3f9d97a3d.gif)
 
